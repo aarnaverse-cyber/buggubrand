@@ -7,4 +7,4 @@ Website for Buggu aur Papa Babloo ki Jodi, from Kayhan Buggu TV Studios.
 - `colour.html` 20 colouring pages
 - `img/` frames from the Buggu TV channel
 
-Served by GitHub Pages at https://buggubrand.com
+Hosted on Vercel at https://buggubrand.com (deploys automatically on every push to main).
