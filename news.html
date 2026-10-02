@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" href="img/b-logo.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image" content="https://buggubrand.com/img/og.jpg">
+<meta name="description" content="Small, happy stories from Khilkhilapur, the town where Buggu and Papa Babloo live.">
+<meta property="og:title" content="Buggu News">
+<meta property="og:description" content="Small, happy stories from Khilkhilapur, the town where Buggu and Papa Babloo live.">
+<meta property="og:url" content="https://buggubrand.com/news.html">
+<title>Buggu News</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Hind:wght@400;500;600&display=swap">
+<style>
+
+/* Layout: sticky slim nav, split hero (copy + hug frame), phone-shaped reel strip as the one loud moment, quiet sections after. */
+:root{
+  --bg:#FFFFFF;          /* white page */
+  --lines:#FBEFB8;       /* soft yellow lines, the colour of the gold B */
+  --sun:#FFF8DC;         /* pale yellow panels */
+  --gold:#E2B42B;
+  --surface:#FFFFFF;
+  --ink:#1D2440;         /* night-sky navy from the renders */
+  --muted:#56607A;
+  --line:#EFE6C4;
+  --cap:#EE8E23;         /* Buggu's orange monster cap */
+  --cap-ink:#B35F05;
+  --papa:#C8322F;        /* Papa Babloo's red B cap */
+  --mask:#1FA59C;        /* turquoise eye mask */
+  --display:"Baloo 2","Trebuchet MS",system-ui,sans-serif;
+  --body:"Hind","Segoe UI",system-ui,sans-serif;
+  --r:18px;
+  color-scheme:light;
+}
+/* Single bright look by design: white with yellow lines in every theme. */
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{margin:0;background-color:var(--bg);background-image:repeating-linear-gradient(135deg,transparent 0 34px,var(--lines) 34px 36px);background-attachment:fixed;color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit}
+a:focus-visible,button:focus-visible{outline:3px solid var(--mask);outline-offset:3px;border-radius:8px}
+.wrap{max-width:1160px;margin:0 auto;padding-inline:20px}
+h1,h2,h3{font-family:var(--display);line-height:1.05;margin:0;text-wrap:balance}
+p{margin:0}
+.eyebrow{font-family:var(--display);font-weight:700;font-size:.85rem;letter-spacing:.08em;text-transform:uppercase;color:var(--mask)}
+
+/* opening: the gold B alone on white; tap to enter */
+.splash{position:fixed;inset:0;z-index:100;background:#FFFFFF;display:grid;place-content:center;justify-items:center;gap:6px;padding-inline:24px;transition:opacity .6s ease .35s,visibility 0s linear .95s}
+.splash .b{appearance:none;border:0;background:none;padding:24px;cursor:pointer;border-radius:50%;transition:transform .9s cubic-bezier(.6,-0.2,.3,1)}
+.splash .b img{width:min(46vw,230px);height:auto;filter:drop-shadow(0 18px 24px rgba(226,180,43,.35));animation:float 2.8s ease-in-out infinite}
+.splash .b:focus-visible{outline-offset:-10px}
+.splash .b::after{content:"";position:absolute;left:50%;top:50%;width:min(60vw,300px);height:min(60vw,300px);margin:calc(min(60vw,300px) / -2) 0 0 calc(min(60vw,300px) / -2);border-radius:50%;border:2px solid var(--gold);animation:ring 2.8s ease-out infinite;pointer-events:none}
+.splash .b{position:relative}
+.splash .hint{position:absolute;bottom:calc(48px + env(safe-area-inset-bottom,0px));left:0;right:0;text-align:center;font-family:var(--display);font-weight:600;color:var(--muted);letter-spacing:.06em;transition:opacity .3s ease}
+.splash.open{opacity:0;visibility:hidden;pointer-events:none}
+.splash.open .b{transform:scale(7) rotate(-8deg)}
+.splash.open .b img{animation:none}
+.splash.open .hint{opacity:0}
+.splash .thanks{font-family:var(--display);font-weight:600;font-size:clamp(1.1rem,3.4vw,1.6rem);line-height:1.3;color:var(--ink);text-align:center;max-width:22ch;text-wrap:balance;animation:softin 1.8s ease .9s both}
+.splash .thanks::after{content:"";display:block;width:56px;height:3px;border-radius:3px;background:var(--gold);margin:14px auto 0;animation:softin 1.4s ease 1.8s both}
+.splash .hint{animation:softin 1s ease 2.6s both}
+.splash.open .thanks{opacity:0;transition:opacity .3s ease}
+@keyframes softin{from{opacity:0;transform:translateY(8px);filter:blur(3px)}to{opacity:1;transform:none;filter:none}}
+body.locked{overflow:hidden}
+@keyframes float{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-12px) rotate(2deg)}}
+@keyframes ring{0%{transform:scale(.7);opacity:.9}100%{transform:scale(1.25);opacity:0}}
+.reveal .hero h1,.reveal .hero .hindi,.reveal .hero .lede,.reveal .hero .ctas,.reveal .hero .facts,.reveal .hero-art{animation:rise .7s cubic-bezier(.2,.8,.2,1) both}
+.reveal .hero .hindi{animation-delay:.08s}.reveal .hero .lede{animation-delay:.14s}.reveal .hero .ctas{animation-delay:.2s}.reveal .hero .facts{animation-delay:.26s}.reveal .hero-art{animation-delay:.12s}
+@keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+
+/* nav */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:rgba(255,255,255,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;gap:20px;padding-block:12px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--display);font-weight:800;font-size:1.35rem}
+.brand img{width:auto;height:40px}
+.nav-links{display:flex;gap:22px;margin-left:auto;font-weight:500}
+.nav-links a{text-decoration:none;color:var(--muted)}
+.nav-links a:hover{color:var(--ink)}
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--display);font-weight:700;font-size:1.02rem;text-decoration:none;padding:12px 22px;border-radius:999px;border:2px solid transparent;transition:transform .15s ease}
+.btn:hover{transform:translateY(-2px)}
+.btn-yt{background:var(--papa);color:#fff}
+.btn-ghost{border-color:var(--ink);color:var(--ink)}
+.btn svg{width:20px;height:20px;flex:none}
+@media (max-width:760px){.nav-links{display:none}.nav .btn{margin-left:auto;padding:9px 16px}}
+
+.nav-links a[aria-current="page"]{color:var(--ink);font-weight:600;box-shadow:inset 0 -3px 0 var(--gold)}
+
+.masthead{text-align:center;padding-block:44px 22px}
+.masthead .town{font-family:var(--display);font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mask);font-size:.9rem}
+.masthead h1{font-size:clamp(3.2rem,11vw,7rem);font-weight:800;line-height:.95;margin-top:6px}
+.masthead h1 span{color:var(--gold)}
+.masthead .tag{color:var(--muted);margin-top:8px;font-size:1.05rem}
+.edition{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 20px;border-block:3px double var(--ink);padding-block:8px;font-family:var(--display);font-weight:600;font-size:.92rem;font-variant-numeric:tabular-nums}
+.today{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:2px;background:var(--line);border:2px solid var(--line);border-radius:14px;overflow:hidden;margin-block:22px 34px}
+.today div{background:var(--sun);padding:12px 14px}
+.today b{display:block;font-family:var(--display);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--cap-ink)}
+.today span{font-size:.98rem}
+@media (max-width:760px){.today{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.story{background:var(--surface);border:2px solid var(--line);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column}
+.story .pic{aspect-ratio:4/3;overflow:hidden}
+.story .pic img{width:100%;height:100%;object-fit:cover}
+.story .txt{padding:18px 20px 22px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.story .kicker{font-family:var(--display);font-weight:700;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:var(--papa)}
+.story h2{font-size:1.5rem;font-weight:800;line-height:1.1}
+.story .dateline{font-size:.78rem;letter-spacing:.06em;color:var(--muted);font-weight:600}
+.story .txt p:not(.kicker):not(.dateline){font-size:1rem;color:var(--ink)}
+.story.lead{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);margin-bottom:28px;border-color:var(--gold)}
+.story.lead .pic{aspect-ratio:auto;min-height:420px}
+.story.lead .txt{padding:30px 32px;justify-content:center}
+.story.lead h2{font-size:clamp(2rem,4vw,2.9rem)}
+.story.lead .txt p:not(.kicker):not(.dateline){font-size:1.1rem}
+@media (max-width:820px){.story.lead{grid-template-columns:1fr}.story.lead .pic{min-height:0;aspect-ratio:4/3}.story.lead .txt{padding:20px}}
+.stories{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;align-items:start}
+@media (max-width:980px){.stories{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:600px){.stories{grid-template-columns:1fr}}
+.news-foot{text-align:center;color:var(--muted);padding-block:40px 10px}
+.news-foot a{font-weight:600}
+main{padding-bottom:40px}
+
+</style>
+</head>
+<body>
+<nav class="nav" aria-label="Main">
+  <div class="wrap">
+    <a class="brand" href="./"><img src="img/b-logo.png" alt="">Buggu</a>
+    <div class="nav-links">
+      <a href="./#reels">Watch</a>
+      <a href="news.html" aria-current="page">Buggu News</a>
+      <a href="colour.html">Colouring</a>
+      <a href="./#partner">Partner</a>
+    </div>
+    <a class="btn btn-yt" href="https://www.youtube.com/@BugguTvOfficial?sub_confirmation=1" target="_blank" rel="noopener">Subscribe</a>
+  </div>
+</nav>
+<main class="wrap">
+  <header class="masthead">
+    <p class="town">Khilkhilapur's happiest newspaper</p>
+    <h1>Buggu <span>News</span></h1>
+    <p class="tag">Small stories from the town where Buggu and Papa Babloo live.</p>
+  </header>
+  <div class="edition"><span>Edition No. 1</span><span>October 2026</span><span>Price: one smile</span></div>
+  <div class="today" aria-label="Khilkhilapur today">
+    <div><b>Weather</b><span>Sunny, 29°C, breeze from the mango orchard</span></div>
+    <div><b>Swing queue</b><span>About six children</span></div>
+    <div><b>Chhotu the sprout</b><span>2 cm and growing</span></div>
+    <div><b>Lost and found</b><span>One small blue sock, at the bandstand</span></div>
+  </div>
+  <article class="story lead">
+  <div class="pic"><img src="img/mwJ08j_aY-o.jpg" alt="" style="object-position:50% 40%" loading="eager"></div>
+  <div class="txt">
+    <p class="kicker">Garden</p>
+    <h2>Chhotu the Sprout Says Hello</h2>
+    <p class="dateline">KHILKHILAPUR · Thursday 1 October</p>
+    <p>After nine mornings of watering, Buggu found a small green shoot in the clay pot by the back steps.</p><p>He had been checking it twice a day, once before breakfast and once after his bath. Twice he told Papa Babloo that nothing was ever going to grow. On Thursday, it did.</p><p>Buggu has named it Chhotu. He has also moved his watering can to sleep next to the pot so the sprout won&#x27;t feel lonely. Papa Babloo says Chhotu will be a tomato plant. Buggu says Chhotu will be a tree. The whole street is waiting to find out.</p>
+  </div>
+</article>
+  <div class="stories">
+    <article class="story">
+  <div class="pic"><img src="img/505uSiI8BfI.jpg" alt="" style="object-position:50% 45%" loading="lazy"></div>
+  <div class="txt">
+    <p class="kicker">Gulmohar Park</p>
+    <h2>The New Swing Has a Queue, and a Rule</h2>
+    <p class="dateline">KHILKHILAPUR · Tuesday 29 September</p>
+    <p>Gulmohar Park got its new swing on Monday. By Tuesday it had the longest queue in Khilkhilapur.</p><p>The children made the rule themselves: you count to twenty out loud, then you get off. The counting is done by whoever is next, so some turns last a very fast twenty and some last a very slow one.</p><p>Buggu noticed a boy standing by the fence who hadn&#x27;t joined the line, and walked over to ask if he wanted to go after him. His name is Raju. He now has a turn, and a friend.</p>
+  </div>
+</article><article class="story">
+  <div class="pic"><img src="img/qleA7R1_Tzc.jpg" alt="" style="object-position:50% 70%" loading="lazy"></div>
+  <div class="txt">
+    <p class="kicker">Records</p>
+    <h2>Fourteen Blocks High</h2>
+    <p class="dateline">KHILKHILAPUR · Wednesday 30 September</p>
+    <p>Buggu and Raju built the tallest block tower Khilkhilapur has ever measured, using the living-room rug as the official ground.</p><p>It reached fourteen blocks before it wobbled. Papa Babloo measured it with a wooden ruler and wrote the number on the fridge. Then Raju sneezed.</p><p>The tower is no longer standing. Both builders agree the falling down was the best part, and plans for fifteen are already under way.</p>
+  </div>
+</article><article class="story">
+  <div class="pic"><img src="img/lTmYat87MVg.jpg" alt="" style="object-position:50% 60%" loading="lazy"></div>
+  <div class="txt">
+    <p class="kicker">Sandpit</p>
+    <h2>Two Trucks, One Sandpit, No Fighting</h2>
+    <p class="dateline">KHILKHILAPUR · Saturday 26 September</p>
+    <p>There is one red dump truck and one blue dump truck in the sandpit behind the community hall. On Saturday there were two children who both wanted the red one.</p><p>Buggu held on to it for a long time. Then he tried something new. He loaded the red truck, drove it over to Meeku, and Meeku tipped the sand out with the blue one.</p><p>They called it a delivery service. It ran until lunch and moved, by Buggu&#x27;s count, a hundred buckets of sand.</p>
+  </div>
+</article><article class="story">
+  <div class="pic"><img src="img/lYE30clK3ec.jpg" alt="" style="object-position:50% 55%" loading="lazy"></div>
+  <div class="txt">
+    <p class="kicker">Music</p>
+    <h2>Matching Violins at the Music Morning</h2>
+    <p class="dateline">KHILKHILAPUR · Sunday 27 September</p>
+    <p>The Sunday music morning at the Gulmohar Park bandstand had a surprise act: Buggu and his cousin Guddu, in matching mint onesies, playing two small violins at once.</p><p>They did not play the same song. Nobody minded. The audience of eleven clapped, Papa Babloo clapped loudest, and a pigeon left halfway through, which Guddu says is a compliment in pigeon.</p>
+  </div>
+</article><article class="story">
+  <div class="pic"><img src="img/OTboFb71Lhk.jpg" alt="" style="object-position:50% 70%" loading="lazy"></div>
+  <div class="txt">
+    <p class="kicker">Kitchen</p>
+    <h2>Pizza Night Gets a Face</h2>
+    <p class="dateline">KHILKHILAPUR · Sunday 27 September</p>
+    <p>At Sunday pizza night in the Babloo kitchen, Buggu got his own small base and was told he could put the toppings anywhere he liked.</p><p>He chose mushroom eyes, an olive nose and a smile made of sweetcorn. He would not let anyone cut the face, so Papa Babloo ate around it.</p><p>The face was eaten last, very slowly, starting with the left eye.</p>
+  </div>
+</article><article class="story">
+  <div class="pic"><img src="img/RSnn3rg8xSA.jpg" alt="" style="object-position:40% 40%" loading="lazy"></div>
+  <div class="txt">
+    <p class="kicker">Community Hall</p>
+    <h2>Papa Babloo Plays the Old Piano</h2>
+    <p class="dateline">KHILKHILAPUR · Wednesday 23 September</p>
+    <p>The old piano in the Khilkhilapur community hall has three keys that stick and one that goes clunk.</p><p>On Wednesday evening Papa Babloo sat down and played it anyway: two fast songs, then a slow lullaby his grandmother used to hum. By the end of the lullaby, two babies in the front row were fast asleep.</p><p>The hall committee says the piano will be tuned before Diwali. Papa Babloo says he will miss the clunk.</p>
+  </div>
+</article><article class="story">
+  <div class="pic"><img src="img/m4OqnYRNyqw.jpg" alt="" style="object-position:35% 92%" loading="lazy"></div>
+  <div class="txt">
+    <p class="kicker">Mystery</p>
+    <h2>The Case of the Kitchen Lollipop</h2>
+    <p class="dateline">KHILKHILAPUR · Friday 25 September</p>
+    <p>A large red-and-white lollipop was found on the kitchen counter at four o&#x27;clock on Friday. Nobody would say where it came from.</p><p>Buggu investigated for most of the afternoon. He checked under the table, behind the fridge and inside Papa&#x27;s slipper.</p><p>At dinner the mystery was solved. It was Papa Babloo&#x27;s surprise for after the vegetables. The detective ate all his peas.</p>
+  </div>
+</article><article class="story">
+  <div class="pic"><img src="img/-UncPQj0e1A.jpg" alt="" style="object-position:50% 60%" loading="lazy"></div>
+  <div class="txt">
+    <p class="kicker">Garden Fair</p>
+    <h2>Best Smile at the Garden Fair</h2>
+    <p class="dateline">KHILKHILAPUR · Saturday 19 September</p>
+    <p>Khilkhilapur&#x27;s garden fair gives prizes for the biggest pumpkin, the tallest sunflower and the nicest roses. This year the judges added a new one.</p><p>Papa Babloo didn&#x27;t grow anything that won. He did spend the whole afternoon showing children how to hold a ladybird without squashing it. The judges gave him a paper medal for Best Smile, and it is now pinned to his red cap.</p>
+  </div>
+</article><article class="story">
+  <div class="pic"><img src="img/s9x2O05JuLw.jpg" alt="" style="object-position:50% 55%" loading="lazy"></div>
+  <div class="txt">
+    <p class="kicker">Neighbourhood</p>
+    <h2>The Night Light Club Meets for the First Time</h2>
+    <p class="dateline">KHILKHILAPUR · Tuesday 22 September</p>
+    <p>Five children who are a little bit scared of the dark held the first meeting of the Night Light Club on Tuesday.</p><p>Each member brought one thing that helps. Buggu brought Mulmul, his soft blanket. Meeku brought a torch shaped like a fish.</p><p>The club agreed on one rule: you can say you&#x27;re scared, and nobody laughs. The next meeting is on the full moon, and everyone is bringing a snack.</p>
+  </div>
+</article>
+  </div>
+  <p class="news-foot">See these moments move on <a href="https://www.youtube.com/@BugguTvOfficial/shorts" target="_blank" rel="noopener">Buggu TV</a>.</p>
+</main>
+<footer>
+  <div class="wrap">
+    <span>© 2026 Kayhan Buggu TV® Studios. Buggu and Papa Babloo are trademarks of Kayhan Buggu TV.</span>
+    <span class="links">
+      <a href="https://www.youtube.com/@BugguTvOfficial" target="_blank" rel="noopener">YouTube</a>
+      <a href="https://www.instagram.com/buggutv/" target="_blank" rel="noopener">Instagram</a>
+    </span>
+  </div>
+</footer>
+
+</body>
+</html>
